@@ -14336,15 +14336,19 @@ function demoPanelDB(){
     ['🍳','Sebzeli yumurta','2 yumurtalı ıspanaklı yumurta','1 kase yoğurt','Yeşil salata'],
     ['🐟','Izgara somon','120 g ızgara somon','Buharda kuşkonmaz','Yeşil salata'],
     ['🥣','Ev yapımı sebze çorbası','1 kase sebze çorbası','1 dilim peynirli tost','Ayran']];
+  const PHC={}; const PHBG={'Kahvaltı':['#fff4dc','#ffd9a3'],'Ara Öğün':['#eaf5df','#c9e4b3'],'Öğle':['#e4f1f8','#b8d9ec'],'Akşam':['#f1e6f5','#d8c0e6']};
+  const PH=(em,kind)=>{ const k=em+'|'+kind; if(PHC[k]) return PHC[k]; const bg=PHBG[kind]||PHBG['Öğle'];
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+bg[0]+'"/><stop offset="1" stop-color="'+bg[1]+'"/></linearGradient><radialGradient id="p" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ece6da"/></radialGradient></defs><rect width="480" height="360" fill="url(#g)"/><g opacity=".18" stroke="#fff" stroke-width="14"><path d="M-20 60L500 20M-20 150L500 110M-20 240L500 200M-20 330L500 290"/></g><ellipse cx="240" cy="318" rx="150" ry="14" fill="#000" opacity=".12"/><circle cx="240" cy="180" r="140" fill="url(#p)"/><circle cx="240" cy="180" r="112" fill="none" stroke="#d9d0bf" stroke-width="3"/><text x="240" y="228" font-size="130" text-anchor="middle">'+em+'</text><text x="74" y="96" font-size="38" opacity=".85">\uD83C\uDF3F</text><text x="372" y="318" font-size="34" opacity=".85">\uD83E\uDED2</text></svg>';
+    return PHC[k]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg); };
   function mkPlan(name,startN,seed){
     const st=new Date(); st.setDate(st.getDate()-startN);
     return {name,start:svIso(st),firstDay:(st.getDay()+6)%7,sub:'Dengeli, sürdürülebilir ve doyurucu bir Akdeniz tarzı beslenme',
-      days:WD.map((dn,i)=>{ const k=(i+seed)%7; return {name:dn,sub:SUB[i],photo:'',meals:[
-        {name:'Kahvaltı',emoji:KAH[k][0],title:KAH[k][1],lines:KAH[k].slice(2),tip:i%3===0?'Kahvaltıdan önce 1 bardak ılık su iç 💧':'',photo:''},
-        {name:'Ara Öğün',emoji:ARA1[k][0],title:'',lines:ARA1[k].slice(1),tip:'',photo:''},
-        {name:'Öğle',emoji:OGLE[k][0],title:OGLE[k][1],lines:OGLE[k].slice(2),tip:i%2?'Yavaş ye, 20 dakikada bitirmeye çalış 🌿':'',photo:''},
-        {name:'Ara Öğün',emoji:ARA2[k][0],title:'',lines:ARA2[k].slice(1),tip:'',photo:''},
-        {name:'Akşam',emoji:AKS[k][0],title:AKS[k][1],lines:AKS[k].slice(2),tip:i===4?'Akşam yemeğini 20.00\'den önce bitir 🌙':'',photo:''}]}; })};
+      days:WD.map((dn,i)=>{ const k=(i+seed)%7; return {name:dn,sub:SUB[i],photo:PH(AKS[k][0],'Akşam'),meals:[
+        {name:'Kahvaltı',emoji:KAH[k][0],title:KAH[k][1],lines:KAH[k].slice(2),tip:i%3===0?'Kahvaltıdan önce 1 bardak ılık su iç 💧':'',photo:PH(KAH[k][0],'Kahvaltı')},
+        {name:'Ara Öğün',emoji:ARA1[k][0],title:'',lines:ARA1[k].slice(1),tip:'',photo:PH(ARA1[k][0],'Ara Öğün')},
+        {name:'Öğle',emoji:OGLE[k][0],title:OGLE[k][1],lines:OGLE[k].slice(2),tip:i%2?'Yavaş ye, 20 dakikada bitirmeye çalış 🌿':'',photo:PH(OGLE[k][0],'Öğle')},
+        {name:'Ara Öğün',emoji:ARA2[k][0],title:'',lines:ARA2[k].slice(1),tip:'',photo:PH(ARA2[k][0],'Ara Öğün')},
+        {name:'Akşam',emoji:AKS[k][0],title:AKS[k][1],lines:AKS[k].slice(2),tip:i===4?'Akşam yemeğini 20.00\'den önce bitir 🌙':'',photo:PH(AKS[k][0],'Akşam')}]}; })};
   }
 
     return {mkPlan};
