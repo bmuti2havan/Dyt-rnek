@@ -48,6 +48,7 @@
       if(m==='GET') return J(null);
       return J({name:'demo'});
     }
+    if(/open-meteo\.com/.test(u)) return J({},500);
     return real(u,o);
   };
   window.__DEMO_PANEL=true;
